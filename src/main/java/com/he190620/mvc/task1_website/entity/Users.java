@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
@@ -23,6 +24,10 @@ public class Users {
 
     @Column(nullable = false)
     private String password;
+
+    @Setter
+    @Column(name = "google_subject", length = 255)
+    private String googleSubject;
 
     protected Users() {
     }
@@ -48,4 +53,9 @@ public class Users {
     public String getPassword() {
         return password;
     }
+
+    public String getGoogleSubject() {
+        return googleSubject;
+    }
+
 }

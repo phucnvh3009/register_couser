@@ -50,3 +50,14 @@ loginForm.addEventListener("submit", async function (event) {
     window.location.href = "/home";
   });
 });
+
+const loginParams = new URLSearchParams(window.location.search);
+
+if (loginParams.get("googleError") === "true") {
+  showAlert(
+      formAlert,
+      "Đăng nhập Google chưa hoàn tất. " +
+      "Nếu email đã có tài khoản, hãy đăng nhập bằng mật khẩu. " +
+      "Nếu không, kiểm tra cấu hình Google hoặc log server."
+  );
+}

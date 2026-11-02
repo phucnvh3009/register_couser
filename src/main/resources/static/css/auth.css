@@ -478,4 +478,64 @@ body {
     .profile {
         padding: 24px;
     }
+
+    /* Social login section */
+    .social-login {
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+
+    .social-login p {
+        margin: 0 0 0.75rem;
+        color: #6b7280;
+        font-size: 0.875rem;
+    }
+
+    /* Google login button */
+    .google-login-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.625rem;
+
+        width: 100%;
+        padding: 0.75rem 1rem;
+        box-sizing: border-box;
+
+        background-color: #ffffff;
+        color: #3c4043;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+
+        border: 1px solid #dadce0;
+        border-radius: 8px;
+
+        transition:
+                background-color 0.15s ease,
+                border-color 0.15s ease,
+                box-shadow 0.15s ease;
+    }
+
+    .google-login-button:hover {
+        background-color: #f8f9fa;
+        border-color: #c7c7c7;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .google-login-button:focus-visible {
+        outline: 3px solid rgba(66, 133, 244, 0.4);
+        outline-offset: 2px;
+    }
+
+    .google-login-button:active {
+        background-color: #f1f3f4;
+    }
+
+    .google-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
 }

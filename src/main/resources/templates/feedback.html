@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Send Feedback - Course Registration System</title>
+    <link rel="stylesheet" th:href="@{/css/feedback.css}" href="/css/feedback.css">
+</head>
+
+<body class="feedback-page">
+
+<header class="feedback-header">
+    <a th:href="@{/home}" href="/home">Home</a>
+    <a th:href="@{/feedback/list}" href="/feedback/list">View Feedbacks</a>
+</header>
+
+<main class="container">
+    <section class="feedback-card" aria-labelledby="feedbackTitle">
+
+        <h1 id="feedbackTitle" class="feedback-title">
+            Send Feedback
+        </h1>
+
+        <p class="feedback-subtitle">
+            Enter your feedback below.
+            A copy will be sent to the email address you provide.
+        </p>
+
+        <!-- Success notification -->
+        <div class="feedback-alert success"
+             role="status"
+             th:if="${successMessage != null}"
+             th:text="${successMessage}">
+        </div>
+
+        <!-- Error notification -->
+        <div class="feedback-alert error"
+             role="alert"
+             th:if="${errorMessage != null}"
+             th:text="${errorMessage}">
+        </div>
+
+        <form class="feedback-form"
+              th:action="@{/feedback/send}"
+              th:object="${feedback}"
+              method="post">
+
+            <div class="form-group">
+                <label for="name" class="form-label">
+                    Your name
+                </label>
+
+                <input type="text"
+                       id="name"
+                       class="form-control"
+                       th:field="*{name}"
+                       autocomplete="name"
+                       placeholder="Enter your name"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">
+                    Your email
+                </label>
+
+                <input type="email"
+                       id="email"
+                       class="form-control"
+                       th:field="*{email}"
+                       autocomplete="email"
+                       placeholder="Enter your email"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="subject" class="form-label">
+                    Subject
+                </label>
+
+                <input type="text"
+                       id="subject"
+                       class="form-control"
+                       th:field="*{subject}"
+                       placeholder="Enter feedback subject"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="message" class="form-label">
+                    Message
+                </label>
+
+                <textarea id="message"
+                          class="form-control"
+                          th:field="*{message}"
+                          rows="6"
+                          placeholder="Enter your feedback"
+                          required></textarea>
+            </div>
+
+            <button type="submit" class="feedback-submit-btn">
+                Send Feedback
+            </button>
+
+        </form>
+    </section>
+</main>
+
+</body>
+</html>

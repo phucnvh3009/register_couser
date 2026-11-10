@@ -323,6 +323,46 @@ body {
     padding-bottom: 48px;
 }
 
+/* ===== Shared button ===== */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-right: 20px;
+
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 0.65rem 1.5rem;
+
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.button:hover,
+.button:focus {
+    background: #3d5be8;
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 110, 247, 0.35);
+}
+
+.button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.button.block {
+    width: 100%;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 991.98px) {
     .hero-title { font-size: 3rem; }

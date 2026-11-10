@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Dashboard | Management System</title>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Weather Stylesheet -->
+  <link rel="stylesheet" th:href="@{/css/weather.css}" href="/css/weather.css">
+</head>
+<body>
+
+  <div class="weather-dashboard">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="user-welcome">
+        <h1>Good morning, <span id="userGreetingName">HanaYuki</span>! 👋</h1>
+        <p>Here's the weather update for today</p>
+      </div>
+
+      <div class="top-actions">
+        <a th:href="@{/home}" href="/home" class="back-btn" title="Back to Home">
+          <i class="bi bi-house-door"></i> Home
+        </a>
+        <button type="button" class="icon-btn" title="Theme" aria-label="Theme">
+          <i class="bi bi-brightness-high"></i>
+        </button>
+        <button type="button" class="icon-btn" title="Menu" aria-label="Menu">
+          <i class="bi bi-list"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <main class="dashboard-grid">
+      <!-- Left Column -->
+      <section class="left-column">
+        <!-- 1. Hero Weather Card -->
+        <article class="hero-weather-card">
+          <div class="hero-content">
+            <div class="hero-top-row">
+              <div class="location-badge" id="heroLocationBadge">
+                <i class="bi bi-geo-alt-fill"></i>
+                <span id="heroCityName">Hanoi, Vietnam</span>
+                <i class="bi bi-chevron-down ms-1" style="font-size: 0.85rem;"></i>
+              </div>
+              <div class="updated-pill">
+                <i class="bi bi-arrow-clockwise"></i>
+                <span>Updated 5 min ago</span>
+              </div>
+            </div>
+
+            <div class="hero-date">Tuesday, 01 July 2026</div>
+
+            <div class="hero-temp-row">
+              <div class="hero-temp" id="heroTemp">32°C</div>
+              <div class="hero-condition">
+                <i class="hero-condition-icon bi bi-cloud-sun-fill" id="heroConditionIcon"></i>
+                <span class="hero-condition-text" id="heroConditionText">Partly Cloudy</span>
+              </div>
+            </div>
+
+            <div class="hero-feels" id="heroFeelsLike">Feels like 36°C</div>
+          </div>
+
+          <!-- Bottom Frosted Stats Bar -->
+          <div class="hero-stats-bar">
+            <div class="stat-item">
+              <i class="stat-icon bi bi-droplet-fill"></i>
+              <div class="stat-info">
+                <span class="stat-label">Humidity</span>
+                <span class="stat-value" id="heroHumidity">68%</span>
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <i class="stat-icon bi bi-wind"></i>
+              <div class="stat-info">
+                <span class="stat-label">Wind</span>
+                <span class="stat-value" id="heroWind">12 km/h</span>
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <i class="stat-icon bi bi-speedometer2"></i>
+              <div class="stat-info">
+                <span class="stat-label">Pressure</span>
+                <span class="stat-value" id="heroPressure">1008 hPa</span>
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <i class="stat-icon bi bi-eye-fill"></i>
+              <div class="stat-info">
+                <span class="stat-label">Visibility</span>
+                <span class="stat-value" id="heroVisibility">10 km</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Hourly Forecast Card -->
+        <article class="card-box">
+          <div class="card-header-row">
+            <h2 class="card-title">Hourly Forecast</h2>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="nav-arrow-btn" id="prevHourlyBtn" aria-label="Previous hours">
+                <i class="bi bi-chevron-left"></i>
+              </button>
+              <button type="button" class="nav-arrow-btn" id="nextHourlyBtn" aria-label="Next hours">
+                <i class="bi bi-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="hourly-scroll-container" id="hourlyScrollContainer">
+            <!-- Now (Active) -->
+            <div class="hourly-item active">
+              <span class="hourly-time">Now</span>
+              <i class="hourly-icon bi bi-cloud-sun-fill" style="color: #f59e0b;"></i>
+              <span class="hourly-temp">32°C</span>
+              <span class="hourly-precip"><i class="bi bi-droplet-fill"></i> 0%</span>
+            </div>
+
+            <!-- 10:00 -->
+            <div class="hourly-item">
+              <span class="hourly-time">10:00</span>
+              <i class="hourly-icon bi bi-sun-fill" style="color: #f59e0b;"></i>
+              <span class="hourly-temp">33°C</span>
+              <span class="hourly-precip"><i class="bi bi-droplet-fill"></i> 0%</span>
+            </div>
+
+            <!-- 11:00 -->
+            <div class="hourly-item">
+              <span class="hourly-time">11:00</span>
+              <i class="hourly-icon bi bi-sun-fill" style="color: #f59e0b;"></i>
+              <span class="hourly-temp">34°C</span>
+              <span class="hourly-precip"><i class="bi bi-droplet-fill"></i> 0%</span>
+            </div>
+
+            <!-- 12:00 -->
+            <div class="hourly-item">
+              <span class="hourly-time">12:00</span>
+              <i class="hourly-icon bi bi-cloud-sun-fill" style="color: #f59e0b;"></i>
+              <span class="hourly-temp">34°C</span>
+              <span class="hourly-precip"><i class="bi bi-droplet-fill"></i> 10%</span>
+            </div>
+
+            <!-- 13:00 -->
+            <div class="hourly-item">
+              <span class="hourly-time">13:00</span>
+              <i class="hourly-icon bi bi-cloud-sun-fill" style="color: #f59e0b;"></i>
+              <span class="hourly-temp">33°C</span>
+              <span class="hourly-precip"><i class="bi bi-droplet-fill"></i> 10%</span>
+            </div>
+
+            <!-- 14:00 -->
+            <div class="hourly-item">
+              <span class="hourly-time">14:00</span>
+              <i class="hourly-icon bi bi-cloud-rain-fill" style="color: #60a5fa;"></i>
+              <span class="hourly-temp">32°C</span>
+              <span class="hourly-precip"><i class="bi bi-droplet-fill"></i> 20%</span>
+            </div>
+
+            <!-- 15:00 -->
+            <div class="hourly-item">
+              <span class="hourly-time">15:00</span>
+              <i class="hourly-icon bi bi-cloud-rain-fill" style="color: #60a5fa;"></i>
+              <span class="hourly-temp">31°C</span>
+              <span class="hourly-precip"><i class="bi bi-droplet-fill"></i> 20%</span>
+            </div>
+
+            <!-- 16:00 -->
+            <div class="hourly-item">
+              <span class="hourly-time">16:00</span>
+              <i class="hourly-icon bi bi-cloud-rain-fill" style="color: #60a5fa;"></i>
+              <span class="hourly-temp">30°C</span>
+              <span class="hourly-precip"><i class="bi bi-droplet-fill"></i> 30%</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. 7-Day Forecast Card -->
+        <article class="card-box">
+          <div class="card-header-row">
+            <h2 class="card-title">7-Day Forecast</h2>
+          </div>
+
+          <div class="daily-forecast-grid">
+            <!-- Tue -->
+            <div class="daily-item">
+              <span class="daily-day">Tue</span>
+              <span class="daily-date">01 Jul</span>
+              <i class="daily-icon bi bi-cloud-sun-fill" style="color: #f59e0b;"></i>
+              <div class="daily-temps">
+                <span class="temp-max">32°</span>
+                <span class="temp-min">26°</span>
+              </div>
+              <span class="daily-precip"><i class="bi bi-droplet-fill"></i> 0%</span>
+            </div>
+
+            <!-- Wed -->
+            <div class="daily-item">
+              <span class="daily-day">Wed</span>
+              <span class="daily-date">02 Jul</span>
+              <i class="daily-icon bi bi-sun-fill" style="color: #f59e0b;"></i>
+              <div class="daily-temps">
+                <span class="temp-max">33°</span>
+                <span class="temp-min">27°</span>
+              </div>
+              <span class="daily-precip"><i class="bi bi-droplet-fill"></i> 0%</span>
+            </div>
+
+            <!-- Thu -->
+            <div class="daily-item">
+              <span class="daily-day">Thu</span>
+              <span class="daily-date">03 Jul</span>
+              <i class="daily-icon bi bi-cloud-rain-fill" style="color: #60a5fa;"></i>
+              <div class="daily-temps">
+                <span class="temp-max">31°</span>
+                <span class="temp-min">25°</span>
+              </div>
+              <span class="daily-precip"><i class="bi bi-droplet-fill"></i> 40%</span>
+            </div>
+
+            <!-- Fri -->
+            <div class="daily-item">
+              <span class="daily-day">Fri</span>
+              <span class="daily-date">04 Jul</span>
+              <i class="daily-icon bi bi-cloud-rain-heavy-fill" style="color: #3b82f6;"></i>
+              <div class="daily-temps">
+                <span class="temp-max">30°</span>
+                <span class="temp-min">24°</span>
+              </div>
+              <span class="daily-precip"><i class="bi bi-droplet-fill"></i> 60%</span>
+            </div>
+
+            <!-- Sat -->
+            <div class="daily-item">
+              <span class="daily-day">Sat</span>
+              <span class="daily-date">05 Jul</span>
+              <i class="daily-icon bi bi-sun-fill" style="color: #f59e0b;"></i>
+              <div class="daily-temps">
+                <span class="temp-max">32°</span>
+                <span class="temp-min">25°</span>
+              </div>
+              <span class="daily-precip"><i class="bi bi-droplet-fill"></i> 10%</span>
+            </div>
+
+            <!-- Sun -->
+            <div class="daily-item">
+              <span class="daily-day">Sun</span>
+              <span class="daily-date">06 Jul</span>
+              <i class="daily-icon bi bi-cloud-sun-fill" style="color: #f59e0b;"></i>
+              <div class="daily-temps">
+                <span class="temp-max">33°</span>
+                <span class="temp-min">26°</span>
+              </div>
+              <span class="daily-precip"><i class="bi bi-droplet-fill"></i> 10%</span>
+            </div>
+
+            <!-- Mon -->
+            <div class="daily-item">
+              <span class="daily-day">Mon</span>
+              <span class="daily-date">07 Jul</span>
+              <i class="daily-icon bi bi-cloud-rain-fill" style="color: #60a5fa;"></i>
+              <div class="daily-temps">
+                <span class="temp-max">31°</span>
+                <span class="temp-min">24°</span>
+              </div>
+              <span class="daily-precip"><i class="bi bi-droplet-fill"></i> 20%</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Right Column -->
+      <section class="right-column">
+        <!-- 4. Search Location -->
+        <article class="card-box">
+          <div class="card-header-row">
+            <h2 class="card-title">Search for a location</h2>
+          </div>
+
+          <form id="searchForm" class="search-form-row">
+            <div class="search-input-wrap">
+              <input type="text" id="searchInput" class="search-input" placeholder="Search city or location..." autocomplete="off">
+            </div>
+            <button type="submit" class="search-submit-btn" aria-label="Search">
+              <i class="bi bi-search"></i>
+            </button>
+          </form>
+
+          <div class="city-chips-row">
+            <button type="button" class="city-chip active" data-city="hanoi">
+              <i class="bi bi-cloud-sun"></i> Hanoi
+            </button>
+            <button type="button" class="city-chip" data-city="danang">
+              <i class="bi bi-sun"></i> Da Nang
+            </button>
+            <button type="button" class="city-chip" data-city="hcm">
+              <i class="bi bi-cloud"></i> Ho Chi Minh City
+            </button>
+          </div>
+        </article>
+
+        <!-- 5. Favorite Locations -->
+        <article class="card-box">
+          <div class="card-header-row">
+            <h2 class="card-title">Favorite Locations</h2>
+            <a href="#" class="card-action-link">View all</a>
+          </div>
+
+          <div class="favorite-list">
+            <!-- Hanoi -->
+            <div class="fav-item active" data-city="hanoi">
+              <div class="fav-left">
+                <div class="fav-icon-box">
+                  <i class="bi bi-cloud-sun-fill" style="color: #f59e0b;"></i>
+                </div>
+                <h3 class="fav-name">Hanoi, Vietnam</h3>
+              </div>
+              <div class="fav-right">
+                <div class="fav-weather-info">
+                  <p class="fav-temp">32°C</p>
+                  <p class="fav-desc">Partly Cloudy</p>
+                </div>
+                <div class="fav-star active" title="Toggle Favorite">
+                  <i class="bi bi-star-fill"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Da Nang -->
+            <div class="fav-item" data-city="danang">
+              <div class="fav-left">
+                <div class="fav-icon-box">
+                  <i class="bi bi-sun-fill" style="color: #f59e0b;"></i>
+                </div>
+                <h3 class="fav-name">Da Nang, Vietnam</h3>
+              </div>
+              <div class="fav-right">
+                <div class="fav-weather-info">
+                  <p class="fav-temp">29°C</p>
+                  <p class="fav-desc">Sunny</p>
+                </div>
+                <div class="fav-star" title="Toggle Favorite">
+                  <i class="bi bi-star"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ho Chi Minh City -->
+            <div class="fav-item" data-city="hcm">
+              <div class="fav-left">
+                <div class="fav-icon-box">
+                  <i class="bi bi-cloud-fill" style="color: #60a5fa;"></i>
+                </div>
+                <h3 class="fav-name">Ho Chi Minh City, Vietnam</h3>
+              </div>
+              <div class="fav-right">
+                <div class="fav-weather-info">
+                  <p class="fav-temp">31°C</p>
+                  <p class="fav-desc">Cloudy</p>
+                </div>
+                <div class="fav-star" title="Toggle Favorite">
+                  <i class="bi bi-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. Air Quality Index -->
+        <article class="card-box">
+          <div class="card-header-row">
+            <h2 class="card-title">Air Quality Index</h2>
+            <a href="#" class="card-action-link">More info</a>
+          </div>
+
+          <div class="aqi-content-row">
+            <!-- Circular Gauge -->
+            <div class="aqi-gauge-wrap">
+              <svg class="aqi-gauge-svg" viewBox="0 0 100 100">
+                <circle class="aqi-gauge-bg" cx="50" cy="50" r="45"></circle>
+                <circle class="aqi-gauge-progress" id="aqiProgress" cx="50" cy="50" r="45"></circle>
+              </svg>
+              <div class="aqi-gauge-center">
+                <div class="aqi-number" id="aqiNumber">42</div>
+                <div class="aqi-status" id="aqiStatus">Good</div>
+              </div>
+            </div>
+
+            <!-- AQI Details -->
+            <div class="aqi-details-wrap">
+              <p class="aqi-summary-text">Air quality is satisfactory and poses little or no risk.</p>
+              <div class="aqi-pollutants-list">
+                <div class="pollutant-row">
+                  <span class="pollutant-label"><span class="dot dot-green"></span> PM2.5</span>
+                  <span class="pollutant-val" id="pm25Val">18 µg/m³</span>
+                </div>
+                <div class="pollutant-row">
+                  <span class="pollutant-label"><span class="dot dot-lime"></span> PM10</span>
+                  <span class="pollutant-val" id="pm10Val">28 µg/m³</span>
+                </div>
+                <div class="pollutant-row">
+                  <span class="pollutant-label"><span class="dot dot-slate"></span> O₃</span>
+                  <span class="pollutant-val" id="o3Val">32 ppb</span>
+                </div>
+                <div class="pollutant-row">
+                  <span class="pollutant-label"><span class="dot dot-blue"></span> NO₂</span>
+                  <span class="pollutant-val" id="no2Val">12 ppb</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7. Weather Tips -->
+        <article class="card-box">
+          <div class="card-header-row">
+            <h2 class="card-title">Weather Tips</h2>
+          </div>
+
+          <div class="tips-container">
+            <div class="tips-icon-wrap">
+              <i class="bi bi-umbrella-fill umbrella-graphic"></i>
+            </div>
+            <div class="tips-body">
+              <h3 class="tips-title" id="tipTitle">Carry an umbrella today</h3>
+              <p class="tips-text" id="tipText">There is a chance of light rain in the afternoon.</p>
+              <div class="carousel-indicators-dots">
+                <span class="carousel-dot active" data-index="0"></span>
+                <span class="carousel-dot" data-index="1"></span>
+                <span class="carousel-dot" data-index="2"></span>
+                <span class="carousel-dot" data-index="3"></span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <!-- Interactive Weather JavaScript -->
+  <script th:src="@{/js/weather.js}" src="/js/weather.js"></script>
+</body>
+</html>

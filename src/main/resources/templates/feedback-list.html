@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Feedbacks</title>
+    <link rel="stylesheet" th:href="@{/css/feedback-list.css}" href="/css/feedback-list.css">
+</head>
+<body>
+
+<header class="feedback-header">
+    <a th:href="@{/}" href="/">Home</a>
+    <a th:href="@{/feedback}" href="/feedback">Send feedback</a>
+</header>
+
+<main class="table-container">
+    <h1 class="page-title">User Feedbacks</h1>
+
+    <table class="feedback-table">
+        <thead>
+        <tr>
+            <th class="col-id">ID</th>
+            <th class="col-name">Name</th>
+            <th class="col-email">Email</th>
+            <th class="col-subject">Subject</th>
+            <th class="col-message">Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(feedbacks)}">
+            <td colspan="5" style="text-align: center; color: #6b7280; padding: 20px;">
+                No feedbacks found yet.
+            </td>
+        </tr>
+        <tr th:each="fb : ${feedbacks}">
+            <td th:text="${fb.id}">1</td>
+            <td th:text="${fb.getName()}">Hana</td>
+            <td th:text="${fb.email}">hanayuki77777@gmail.com</td>
+            <td th:text="${fb.subject}">Request</td>
+            <td th:text="${fb.getMessage()}">I want to learn about tech.</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+</body>
+</html>
